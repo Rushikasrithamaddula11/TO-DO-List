@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Page To-Do List with Logout</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.title {
+    font-size: 2rem;
+    color: #333;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+.input-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    width: 60%;
+}
+
+input[type="date"] {
+    width: 25%;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+}
+
+li {
+    background-color: #f1f1f1;
+    margin: 10px 0;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    width: 100%;
+}
+
+li span {
+    flex-grow: 1;
+    font-size: 1.2rem;
+}
+
+li small {
+    margin-right: 20px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+li button {
+    background-color: #dc3545;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+li button:hover {
+    background-color: #c82333;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">My To-Do List</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <input type="date" id="deadlineInput">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            var taskInput = document.getElementById("taskInput");
+            var deadlineInput = document.getElementById("deadlineInput");
+            var task = taskInput.value.trim();
+            var deadline = deadlineInput.value;
+            if (task === "") return;
+
+            var taskList = document.getElementById("taskList");
+            var li = document.createElement("li");
+            li.innerHTML = `<span>${task}</span><small>Deadline: ${deadline}</small><button onclick="removeTask(this)">X</button>`;
+            taskList.appendChild(li);
+
+            taskInput.value = "";
+            deadlineInput.value = "";
+        }
+
+        function removeTask(element) {
+            element.parentElement.remove();
+        }
+
+        function logout() {
+            alert("Logged out successfully!");
+            // Redirect to login page (if exists)
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
